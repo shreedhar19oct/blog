@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import articleContent from './article-content'
 import NotFound from './NotFound';
@@ -7,8 +7,14 @@ import Articles from '../Components/Articles';
 const Article = () => {
   const{name}=useParams();
   const article = articleContent.find((article) => article.name === name);
-  if(!article) return <NotFound />
-  const otherArticles = articleContent.filter(article => article.name !== name)
+  const {articleInfo,setArticleInfo} =useState({comments:[]});
+
+  useEffect(()=>{
+    console.log("Component Mounted");
+  });
+
+  if(!article) return <NotFound />;
+  const otherArticles = articleContent.filter(article => article.name !== name);
   return (
     <>
     <h1 className='sm:text-4xl text-2xl font-bold my-6 text-gray-900'>{article.title}</h1>
